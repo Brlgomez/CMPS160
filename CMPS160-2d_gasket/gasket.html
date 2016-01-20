@@ -1,0 +1,37 @@
+<html>
+
+<script id="vertex-shader" type="x-shader/x-vertex">
+attribute vec4 vPosition;
+varying vec4 fColor;
+
+void main()
+{
+  fColor = vec4((vPosition.zyy), 0.5);
+  gl_Position = vPosition;
+}
+</script>
+
+<script id="fragment-shader" type="x-shader/x-fragment">
+precision mediump float;
+
+varying vec4 fColor;
+
+void main()
+{
+  gl_FragColor = fColor;
+}
+</script>
+
+<script type="text/javascript" src="../Common/webgl-utils.js"></script>
+<script type="text/javascript" src="../Common/initShaders.js"></script>
+<script type="text/javascript" src="../Common/MV.js"></script>
+<script type="text/javascript" src="gasket.js"></script>
+
+<body>
+<canvas id="gl-canvas" width="512" height="512">
+
+  Sorry; your web browser does not support HTML5's canvas element.
+  
+</canvas>
+</body>
+</html>

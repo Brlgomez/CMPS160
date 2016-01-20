@@ -1,0 +1,69 @@
+<html>
+
+<script id="vertex-shader" type="x-shader/x-vertex">
+attribute vec4 vPosition;
+uniform float theta;
+varying vec4 fColor;
+uniform float red;
+uniform float green;
+uniform float blue;
+uniform float strech;
+void main()
+{
+  float s = sin(theta);
+  float c = cos(theta);
+  gl_Position.x = -s * vPosition.x + c * vPosition.y;
+  gl_Position.y =  s * vPosition.y + c * vPosition.x;
+  gl_Position.z = 0.0;
+  if(strech == 0.0){
+     gl_Position.y = (gl_Position.x * 2.5) * (gl_Position.y /2.0);
+  }
+  gl_Position.w = 1.0;
+  fColor = vec4(red, green, blue, c);
+  gl_PointSize = 10.0;
+}
+</script>
+
+<script id="fragment-shader" type="x-shader/x-fragment">
+precision mediump float;
+
+varying vec4 fColor;
+
+void main()
+{
+  gl_FragColor = fColor;
+}
+</script>
+
+<script type="text/javascript" src="../Common/webgl-utils.js"></script>
+<script type="text/javascript" src="../Common/initShaders.js"></script>
+<script type="text/javascript" src="../Common/MV.js"></script>
+<script type="text/javascript" src="gasket.js"></script>
+
+<body>
+Press 1 to alter the mountain
+<br>
+Press the colors to add color then again to remove:
+<button id="color">Red</button>
+<button id="colorGreen">Green</button>
+<button id="colorBlue">Blue</button>
+<div>
+Angle of Gasket: Right <input id="slide" 
+  type="range" min="-10.0" max="10.0" step=".1" value="0.0" /> Left
+
+<button id="reset">Stop</button>
+<button id="stop2">Stop Slowly</button>
+<button id="startover">Reset</button>
+</div>
+<br>
+If the angle of gasket slider is father from the middle, 
+<br>
+then the gasket's speed will increase
+<br>
+<canvas id="gl-canvas" width="768" height="768">
+
+  Sorry; your web browser does not support HTML5's canvas element.
+  
+</canvas>
+</body>
+</html>
